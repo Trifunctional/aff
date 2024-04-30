@@ -1,8 +1,10 @@
 :root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Dosis", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 200;
+  font-style: normal;
   font-size: 16px;
   line-height: 24px;
-  font-weight: 400;
 
   color: #0f0f0f;
   background-color: #f6f6f6;

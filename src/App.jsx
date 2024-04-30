@@ -1,53 +1,49 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import { invoke } from "@tauri-apps/api/tauri";
+import { useCallback, useState, useEffect } from "react";
 import "./App.css";
 
-function App() {
-  const [greetMsg, setGreetMsg] = useState("");
-  const [name, setName] = useState("");
+const affirmations = [
+  "I believe in myself.",
+  "I'm a powerful dumptruck!",
+  "There is no one better to be than myself.",
+  "I am enough.",
+  "I get better every single day.",
+  "I am an amazing person.",
+  "All of my problems have solutions.",
+  "Today I am a leader.",
+  "I forgive myself for my mistakes.",
+  "My challenges help me grow.",
+  "I am perfect just the way I am.",
+  "My mistakes help me learn and grow.",
+  "Today is going to be a great day.",
+  "I have courage and confidence.",
+  "I can control my own happiness.",
+  "I have people who love and respect me.",
+  "I stand up for what I believe in.",
+  "I believe in my goals and dreams.",
+  "It's okay not to know everything.",
+  "Today I choose to think positive."
+];
 
-  async function greet() {
-    // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-    setGreetMsg(await invoke("greet", { name }));
-  }
+function App() {
+
+  const [aff, setAff] = useState("");
+
+  const shuffle = useCallback(() => {
+    const i = Math.floor(Math.random() * affirmations.length);
+    setAff(affirmations[i]);
+  }, []);
+
+  useEffect(() => {
+    const intervalID = setInterval(shuffle, 10000);
+    return () => clearInterval(intervalID);
+}, [shuffle])
 
   return (
     <div className="container">
-      <h1>Welcome to Tauri!</h1>
-
-      <div className="row">
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo vite" alt="Vite logo" />
-        </a>
-        <a href="https://tauri.app" target="_blank">
-          <img src="/tauri.svg" className="logo tauri" alt="Tauri logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-
-      <p>Click on the Tauri, Vite, and React logos to learn more.</p>
-
-      <form
-        className="row"
-        onSubmit={(e) => {
-          e.preventDefault();
-          greet();
-        }}
-      >
-        <input
-          id="greet-input"
-          onChange={(e) => setName(e.currentTarget.value)}
-          placeholder="Enter a name..."
-        />
-        <button type="submit">Greet</button>
-      </form>
-
-      <p>{greetMsg}</p>
+      <h1>{aff}</h1>
     </div>
   );
+
 }
 
 export default App;
